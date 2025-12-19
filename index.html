@@ -1,1 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BetPro Uganda - Free & Premium Betting Tips</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #1a5e1a;
+            --secondary: #ffcc00;
+            --dark: #0d2c0d;
+            --light: #f5f5f5;
+            --danger: #e63946;
+            --success: #2a9d8f;
+        }
+        
+        body {
+            background-color: #f0f9f0;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--dark), var(--primary));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(13, 44, 13, 0.9), rgba(26, 94, 26, 0.9)), url('https://images.unsplash.com/photo-1533106497176-45ae19e68ba2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .hero-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary);
+            color: var(--dark);
+        }
+        
+        .btn-primary:hover {
+            background-color: #ffdb4d;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: white;
+            color: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Sections */
+        section {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* Free Tips Section */
+        .tips-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 3rem;
+        }
+        
+        .tip-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .tip-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .tip-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .tip-date {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .tip-body {
+            padding: 20px;
+        }
+        
+        .match-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .team {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .team-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .vs {
+            font-weight: bold;
+            margin: 0 15px;
+            color: var(--primary);
+        }
+        
+        .prediction {
+            background-color: var(--light);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .prediction-type {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .ai-analysis {
+            background-color: #e8f5e8;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            border-left: 4px solid var(--success);
+        }
+        
+        .ai-label {
+            display: inline-block;
+            background-color: var(--success);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .result {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #ddd;
+        }
+        
+        .result.win {
+            color: var(--success);
+        }
+        
+        .result.loss {
+            color: var(--danger);
+        }
+        
+        /* WhatsApp Section */
+        .whatsapp-section {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+        }
+        
+        .whatsapp-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .whatsapp-box i {
+            font-size: 4rem;
+            color: #25D366;
+            margin-bottom: 20px;
+        }
+        
+        .whatsapp-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .whatsapp-number {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 20px 0;
+            display: inline-block;
+        }
+        
+        /* VIP Section */
+        .vip-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .vip-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .vip-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .vip-card.popular {
+            border: 2px solid var(--secondary);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 5px 30px;
+            font-weight: bold;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+        }
+        
+        .vip-header {
+            background: linear-gradient(to right, var(--dark), var(--primary));
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+        
+        .vip-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .vip-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        
+        .vip-period {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .vip-features {
+            padding: 25px;
+        }
+        
+        .vip-features ul {
+            list-style: none;
+        }
+        
+        .vip-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .vip-features li i {
+            color: var(--success);
+            margin-right: 10px;
+        }
+        
+        .vip-cta {
+            padding: 0 25px 25px;
+            text-align: center;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-logo h2 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .footer-links h3, .footer-contact h3 {
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .footer-contact p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        .disclaimer {
+            background-color: #ffebee;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border-left: 4px solid var(--danger);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+                display: none;
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+            
+            .hero-content h2 {
+                font-size: 2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <h1>BetPro <span>Uganda</span></h1>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#free-tips">Free Tips</a></li>
+                    <li><a href="#ai-tips">AI Tips</a></li>
+                    <li><a href="#vip">VIP</a></li>
+                    <li><a href="#whatsapp">WhatsApp</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h2>Expert Betting Tips & Predictions for Uganda</h2>
+            <p>Get daily free betting tips from our AI-powered analysis or join our VIP club for premium winning predictions. Increase your winning chances with our data-driven insights.</p>
+            <div class="cta-buttons">
+                <a href="#free-tips" class="btn btn-primary">View Free Tips</a>
+                <a href="#vip" class="btn btn-secondary">Join VIP Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Free Tips Section -->
+    <section id="free-tips">
+        <div class="container">
+            <h2 class="section-title">Today's Free Betting Tips</h2>
+            <div class="tips-container" id="tipsContainer">
+                <!-- Tips will be dynamically added by JavaScript -->
+            </div>
+            
+            <div class="disclaimer">
+                <p><strong>Disclaimer:</strong> Betting involves risk. Please gamble responsibly and only with money you can afford to lose. Our predictions are for informational purposes only.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Daily Tips Section -->
+    <section id="ai-tips" style="background-color: #f8fdf8;">
+        <div class="container">
+            <h2 class="section-title">AI-Generated Daily Tips</h2>
+            <div class="tips-container">
+                <!-- AI tips will be dynamically added -->
+            </div>
+            
+            <div class="ai-analysis" style="max-width: 800px; margin: 30px auto;">
+                <span class="ai-label"><i class="fas fa-robot"></i> AI ANALYSIS</span>
+                <h3 style="margin: 10px 0; color: var(--dark);">Today's Betting Market Analysis</h3>
+                <p id="aiAnalysisText">Our AI algorithm has analyzed 127 matches today and identified high-value betting opportunities with a 78% predicted accuracy rate. The system has detected strong value in Premier League fixtures and recommends focusing on Asian Handicap markets for today's selections.</p>
+                <div style="display: flex; justify-content: space-between; margin-top: 15px; font-size: 0.9rem;">
+                    <span><i class="fas fa-sync-alt"></i> Updated: <span id="updateTime">Today, 09:45 AM</span></span>
+                    <span><i class="fas fa-brain"></i> AI Confidence: <strong>82%</strong></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Section -->
+    <section class="whatsapp-section" id="whatsapp">
+        <div class="container">
+            <div class="whatsapp-box">
+                <i class="fab fa-whatsapp"></i>
+                <h3>Get Tips Directly on WhatsApp</h3>
+                <p>Receive free betting tips directly on your WhatsApp. Our experts share daily predictions, analysis, and exclusive offers.</p>
+                <div class="whatsapp-number">
+                    <i class="fab fa-whatsapp"></i> +256 771 222 324
+                </div>
+                <p>Send "FREE TIPS" to this number to get started.</p>
+                <a href="https://wa.me/256771222324?text=Hello!%20I%20want%20free%20betting%20tips" class="btn btn-primary" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Message Us Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIP Section -->
+    <section id="vip">
+        <div class="container">
+            <h2 class="section-title">VIP Premium Packages</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 40px;">Join our VIP club for exclusive high-odds predictions, detailed analysis, and dedicated support. Our VIP tips have an average win rate of 82%.</p>
+            
+            <div class="vip-container">
+                <!-- Weekly VIP -->
+                <div class="vip-card">
+                    <div class="vip-header">
+                        <h3>Weekly VIP</h3>
+                        <div class="vip-price">UGX 10,000</div>
+                        <div class="vip-period">per week</div>
+                    </div>
+                    <div class="vip-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> 5-7 Daily Premium Tips</li>
+                            <li><i class="fas fa-check"></i> High Odds (2.5+ Average)</li>
+                            <li><i class="fas fa-check"></i> Detailed Match Analysis</li>
+                            <li><i class="fas fa-check"></i> Direct WhatsApp Support</li>
+                            <li><i class="fas fa-check"></i> Weekly Performance Report</li>
+                        </ul>
+                    </div>
+                    <div class="vip-cta">
+                        <a href="https://wa.me/256771222324?text=I%20want%20to%20join%20Weekly%20VIP%20package" class="btn btn-primary" target="_blank">
+                            Join Now
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Monthly VIP (Popular) -->
+                <div class="vip-card popular">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="vip-header">
+                        <h3>Monthly VIP</h3>
+                        <div class="vip-price">UGX 35,000</div>
+                        <div class="vip-period">per month (Save 30%)</div>
+                    </div>
+                    <div class="vip-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Everything in Weekly VIP</li>
+                            <li><i class="fas fa-check"></i> 8-10 Daily Premium Tips</li>
+                            <li><i class="fas fa-check"></i> Accumulator Tips Weekly</li>
+                            <li><i class="fas fa-check"></i> Priority Support</li>
+                            <li><i class="fas fa-check"></i> Monthly Strategy Session</li>
+                            <li><i class="fas fa-check"></i> Risk-Free 1st Month*</li>
+                        </ul>
+                    </div>
+                    <div class="vip-cta">
+                        <a href="https://wa.me/256771222324?text=I%20want%20to%20join%20Monthly%20VIP%20package" class="btn btn-primary" target="_blank">
+                            Join Now
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quarterly VIP -->
+                <div class="vip-card">
+                    <div class="vip-header">
+                        <h3>Quarterly VIP</h3>
+                        <div class="vip-price">UGX 90,000</div>
+                        <div class="vip-period">per 3 months (Save 40%)</div>
+                    </div>
+                    <div class="vip-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Everything in Monthly VIP</li>
+                            <li><i class="fas fa-check"></i> Personal Tipster Consultation</li>
+                            <li><i class="fas fa-check"></i> Betting Bankroll Management</li>
+                            <li><i class="fas fa-check"></i> Live Match Updates</li>
+                            <li><i class="fas fa-check"></i> Exclusive Access to Masterclass</li>
+                        </ul>
+                    </div>
+                    <div class="vip-cta">
+                        <a href="https://wa.me/256771222324?text=I%20want%20to%20join%20Quarterly%20VIP%20package" class="btn btn-primary" target="_blank">
+                            Join Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <p><strong>Payment Methods:</strong> MTN Mobile Money, Airtel Money, Bank Transfer</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>BetPro Uganda</h2>
+                    <p>Your trusted partner for betting tips and predictions in Uganda. We combine AI technology with expert analysis for the best results.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#free-tips">Free Tips</a></li>
+                        <li><a href="#ai-tips">AI Tips</a></li>
+                        <li><a href="#vip">VIP Packages</a></li>
+                        <li><a href="#whatsapp">WhatsApp Tips</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fab fa-whatsapp"></i> +256 771 222 324</p>
+                    <p><i class="fas fa-envelope"></i> info@betpouganda.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Kampala, Uganda</p>
+                    <div style="margin-top: 20px;">
+                        <a href="#" style="color: white; margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-facebook"></i></a>
+                        <a href="#" style="color: white; margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="color: white; margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 BetPro Uganda. All rights reserved. | Gambling should be entertaining, not a way to make money. Please bet responsibly.</p>
+                <p style="margin-top: 10px;">This site is for users 18+ only. | *Terms and conditions apply.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Sample betting tips data
+        const freeTips = [
+            {
+                id: 1,
+                date: "Today",
+                league: "Premier League",
+                teamA: "Arsenal",
+                teamB: "Manchester City",
+                prediction: "Over 2.5 Goals",
+                odds: "1.85",
+                analysis: "Both teams have strong attacking lineups and have averaged 3.2 goals per game in their last 5 meetings.",
+                result: "win"
+            },
+            {
+                id: 2,
+                date: "Today",
+                league: "La Liga",
+                teamA: "Barcelona",
+                teamB: "Real Madrid",
+                prediction: "Barcelona to Win",
+                odds: "2.10",
+                analysis: "Barcelona has home advantage and a stronger record in recent El Clásico matches at Camp Nou.",
+                result: "pending"
+            },
+            {
+                id: 3,
+                date: "Today",
+                league: "Uganda Premier League",
+                teamA: "SC Villa",
+                teamB: "KCCA FC",
+                prediction: "Both Teams to Score",
+                odds: "1.95",
+                analysis: "Both teams have scored in their last 4 meetings. Expect an open game with chances for both sides.",
+                result: "pending"
+            },
+            {
+                id: 4,
+                date: "Yesterday",
+                league: "Serie A",
+                teamA: "AC Milan",
+                teamB: "Inter Milan",
+                prediction: "Draw",
+                odds: "3.30",
+                analysis: "Close derby match with both teams evenly matched. Last 3 derbies have ended in draws.",
+                result: "loss"
+            }
+        ];
+        
+        const aiTips = [
+            {
+                id: 1,
+                date: "AI Tip #1",
+                league: "Champions League",
+                teamA: "Bayern Munich",
+                teamB: "PSG",
+                prediction: "Bayern Munich -1 AH",
+                odds: "2.05",
+                analysis: "AI analysis shows 72% probability for Bayern to win by 2+ goals based on recent form and home advantage.",
+                confidence: "85%"
+            },
+            {
+                id: 2,
+                date: "AI Tip #2",
+                league: "Europa League",
+                teamA: "Manchester United",
+                teamB: "Sevilla",
+                prediction: "Manchester United to Win",
+                odds: "1.75",
+                analysis: "Machine learning model predicts 68% win probability for Man Utd with strong home record in European competitions.",
+                confidence: "79%"
+            },
+            {
+                id: 3,
+                date: "AI Tip #3",
+                league: "Uganda Cup",
+                teamA: "Express FC",
+                teamB: "URA FC",
+                prediction: "Under 2.5 Goals",
+                odds: "1.70",
+                analysis: "Statistical model shows 65% probability for low-scoring match based on defensive records of both teams.",
+                confidence: "76%"
+            }
+        ];
+        
+        // Function to render tips
+        function renderTips(tips, containerId, isAITips = false) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            tips.forEach(tip => {
+                const tipCard = document.createElement('div');
+                tipCard.className = 'tip-card';
+                
+                let resultHtml = '';
+                if (tip.result === 'win') {
+                    resultHtml = `<div class="result win"><span>Result: WIN</span><span><i class="fas fa-check-circle"></i></span></div>`;
+                } else if (tip.result === 'loss') {
+                    resultHtml = `<div class="result loss"><span>Result: LOSS</span><span><i class="fas fa-times-circle"></i></span></div>`;
+                } else if (tip.result === 'pending') {
+                    resultHtml = `<div class="result"><span>Status: Pending</span><span><i class="far fa-clock"></i></span></div>`;
+                }
+                
+                tipCard.innerHTML = `
+                    <div class="tip-header">
+                        <div class="tip-league">${tip.league}</div>
+                        <div class="tip-date">${tip.date}</div>
+                    </div>
+                    <div class="tip-body">
+                        <div class="match-info">
+                            <div class="team">
+                                <div class="team-name">${tip.teamA}</div>
+                                <div>Home</div>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team">
+                                <div class="team-name">${tip.teamB}</div>
+                                <div>Away</div>
+                            </div>
+                        </div>
+                        
+                        <div class="prediction">
+                            <div class="prediction-type">Prediction: ${tip.prediction}</div>
+                            <div>Odds: <strong>${tip.odds}</strong></div>
+                        </div>
+                        
+                        ${isAITips ? 
+                            `<div class="ai-analysis">
+                                <span class="ai-label"><i class="fas fa-robot"></i> AI ANALYSIS</span>
+                                <p>${tip.analysis}</p>
+                                <div style="margin-top: 8px; font-size: 0.9rem;">
+                                    <i class="fas fa-chart-line"></i> AI Confidence: <strong>${tip.confidence}</strong>
+                                </div>
+                            </div>` 
+                            : 
+                            `<div class="analysis">
+                                <p><strong>Analysis:</strong> ${tip.analysis}</p>
+                            </div>`
+                        }
+                        
+                        ${resultHtml}
+                    </div>
+                `;
+                
+                container.appendChild(tipCard);
+            });
+        }
+        
+        // Function to update the time
+        function updateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            const formattedTime = now.toLocaleDateString('en-US', options);
+            document.getElementById('updateTime').textContent = formattedTime;
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Render free tips
+            renderTips(freeTips, 'tipsContainer');
+            
+            // Render AI tips
+            const aiTipsContainer = document.querySelector('#ai-tips .tips-container');
+            renderTips(aiTips, 'ai-tips', true);
+            
+            // Update time
+            updateTime();
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // Close mobile menu if open
+                        navMenu.classList.remove('active');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Simulate AI analysis update every 30 seconds (for demo)
+            setInterval(() => {
+                const analysisTexts = [
+                    "Our AI algorithm has analyzed 127 matches today and identified high-value betting opportunities with a 78% predicted accuracy rate. The system has detected strong value in Premier League fixtures and recommends focusing on Asian Handicap markets for today's selections.",
+                    "Updated analysis: AI models now show increased value in Bundesliga matches with a focus on Over 2.5 goals markets. Confidence level increased to 84% for today's top picks.",
+                    "Live update: AI has detected market movement favoring underdogs in Serie A matches. Adjusting recommendations accordingly with 81% confidence.",
+                    "New insights: Machine learning model identifies strong correlation between recent team form and first-half results. Focusing on 1st half markets today with 79% confidence."
+                ];
+                
+                const randomText = analysisTexts[Math.floor(Math.random() * analysisTexts.length)];
+                document.getElementById('aiAnalysisText').textContent = randomText;
+                
+                // Update time
+                updateTime();
+            }, 30000);
+        });
+    </script>
+</body>
+  </html>
